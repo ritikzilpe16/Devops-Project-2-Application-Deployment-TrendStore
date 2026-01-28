@@ -17,13 +17,13 @@ variable "vpc_cidr" {
 variable "public_subnet_cidrs" {
   description = "Two public subnet CIDRs"
   type        = list(string)
-  default     = ["172.31.32.0/20", "172.31.0.0/20"]
+  default     = ["172.31.0.0/20", "172.31.16.0/20"]
 }
 
 variable "private_subnet_cidrs" {
   description = "Two private subnet CIDRs"
   type        = list(string)
-  default     = ["172.31.32.0/20", "172.31.50.0/28"]
+  default     = ["172.31.32.0/20", "172.31.48.0/20"]
 }
 
 variable "main_cidr" {
@@ -35,5 +35,5 @@ variable "main_cidr" {
 variable "instance_type" {
   description = "EC2 instance type for Jenkins"
   type        = string
-  default     = "t3.medium"
+  default     = "t3.micro"
 }
