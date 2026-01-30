@@ -1,0 +1,65 @@
+pipeline {
+  agent any
+
+  environment {
+    IMAGE = "ritikzilpe1630/trendstore-image"
+    TAG   = "latest"
+  }
+
+  stages {
+
+    stage('Checkout Code') {
+      steps {
+        git branch: 'main',
+        url: 'https://github.com/ritikzilpe16/Devops-Project-2-Application-Deployment-TrendStore.git'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        sh '''
+          docker build -t $IMAGE:$TAG .
+        '''
+      }
+    }
+
+    stage('Login to DockerHub & Push') {
+      steps {
+        withCredentials([
+          usernamePassword(
+            credentialsId: 'Token-02',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+          )
+        ]) {
+          sh '''
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker push $IMAGE:$TAG
+          '''
+        }
+      }
+    }
+
+    stage('Deploy to Minikube') {
+      steps {
+        dir('kubernetes') {
+          sh '''
+            echo "Kubernetes context:"
+            kubectl config current-context
+
+            kubectl apply -f deployment.yaml
+            kubectl apply -f service.yaml
+
+            kubectl rollout status deployment/trendstore
+          '''
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      sh 'docker system prune -af || true'
+    }
+  }
+}
