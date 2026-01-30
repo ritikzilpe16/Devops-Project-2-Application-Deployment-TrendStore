@@ -14,7 +14,6 @@ pipeline {
         url: 'https://github.com/ritikzilpe16/Devops-Project-2-Application-Deployment-TrendStore.git'
       }
     }
-
     stage('Build Docker Image') {
       steps {
         sh '''
