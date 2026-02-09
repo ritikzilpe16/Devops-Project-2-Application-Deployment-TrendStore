@@ -53,3 +53,17 @@ pipeline {
             kubectl apply -f service.yaml
 
             kubectl rollout status deployment/trendstore
+          '''
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      sh '''
+        docker system prune -af || true
+      '''
+    }
+  }
+}
