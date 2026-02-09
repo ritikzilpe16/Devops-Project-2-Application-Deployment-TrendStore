@@ -6,7 +6,6 @@ pipeline {
     TAG   = "latest"
     KUBECONFIG = "/var/lib/jenkins/.kube/config"
   }
-
   stages {
 
     stage('Checkout Code') {
