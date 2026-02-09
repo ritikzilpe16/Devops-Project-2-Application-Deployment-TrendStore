@@ -4,15 +4,18 @@ pipeline {
   environment {
     IMAGE = "ritikzilpe1630/trendstore-image"
     TAG   = "latest"
+    KUBECONFIG = "/var/lib/jenkins/.kube/config"
   }
+
   stages {
 
     stage('Checkout Code') {
       steps {
         git branch: 'main',
-        url: 'https://github.com/ritikzilpe16/Devops-Project-2-Application-Deployment-TrendStore.git'
+            url: 'https://github.com/ritikzilpe16/Devops-Project-2-Application-Deployment-TrendStore.git'
       }
     }
+
     stage('Build Docker Image') {
       steps {
         sh '''
@@ -20,7 +23,7 @@ pipeline {
         '''
       }
     }
-    
+
     stage('Login to DockerHub & Push') {
       steps {
         withCredentials([
@@ -42,22 +45,11 @@ pipeline {
       steps {
         dir('kubernetes') {
           sh '''
-            echo "Kubernetes context:"
-            kubectl config current-context
+            echo "Using Kubernetes config: $KUBECONFIG"
+
+            kubectl config use-context minikube
 
             kubectl apply -f deployment.yaml
             kubectl apply -f service.yaml
 
             kubectl rollout status deployment/trendstore
-          '''
-        }
-      }
-    }
-  }
-
-  post {
-    always {
-      sh 'docker system prune -af || true'
-    }
-  }
-}
