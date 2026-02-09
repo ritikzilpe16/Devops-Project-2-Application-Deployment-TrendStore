@@ -42,21 +42,21 @@ pipeline {
     }
 
     stage('Deploy to Minikube') {
-      steps {
-        dir('kubernetes') {
-          sh '''
-            echo "Using Kubernetes config: $KUBECONFIG"
+  steps {
+    dir('kubernetes') {
+      sh '''
+        export KUBECONFIG=/var/lib/jenkins/.kube/config
 
-            kubectl config use-context minikube
+        kubectl config use-context minikube
 
-            kubectl apply -f deployment.yaml
-            kubectl apply -f service.yaml
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
 
-            kubectl rollout status deployment/trendstore
-          '''
-        }
-      }
+        kubectl rollout status deployment/trendstore
+      '''
     }
+  }
+}
   }
 
   post {
