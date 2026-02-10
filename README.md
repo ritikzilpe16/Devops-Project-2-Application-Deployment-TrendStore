@@ -1,62 +1,36 @@
-# DevOps Project 2: Application Deployment - TrendStore
+# Comprehensive Architecture Overview
 
-## Introduction
-Welcome to the TrendStore project! This repository contains the code for a React application that serves as an e-commerce platform, showcasing various trends and allowing users to browse and purchase products seamlessly.
+## Complete Architecture Overview
+This document provides a detailed overview of the complete architecture of the TrendStore application, covering the frontend, backend, database, and deployment phases.
 
-## Table of Contents
-- [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Installation Instructions](#installation-instructions)
-- [Usage](#usage)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+### 1. Frontend
+- **Framework**: React.js
+- **Key Features**:
+  - User Authentication
+  - Dashboard for data visualization
+  - Responsive UI with Material-UI
 
-## Technologies Used
-- React
-- Redux
-- Node.js
-- Express
-- MongoDB
-- CSS
-- Git
+### 2. Backend
+- **Framework**: Node.js with Express
+- **REST API Endpoints**:
+  - User login: `POST /api/login`
+  - Fetch data: `GET /api/data`
+- **Authentication**: JWT for secure token-based authentication
 
-## Getting Started
-These instructions will help you set up the project locally for development and testing purposes.
+### 3. Database
+- **Database**: MongoDB
+- **Key Collections**:
+  - Users
+  - DataEntries
 
-## Installation Instructions
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ritikzilpe16/Devops-Project-2-Application-Deployment-TrendStore.git
-   cd Devops-Project-2-Application-Deployment-TrendStore
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 4. Deployment
+- **Containerization**: Docker is used to containerize the application.
+- **Orchestration**: Kubernetes for managing application deployment.
+- **Cloud Provider**: AWS 
+  - Services used: EC2 for hosting, S3 for media storage, RDS for managed databases.
 
-## Usage
-To start the application in development mode, run:
-```bash
-npm start
-```
-Open your browser and navigate to `http://localhost:3000` to view the app.
+### 5. CI/CD Pipeline
+- Automated CI/CD using GitHub Actions for continuous deployment to AWS.
 
-## Deployment
-To deploy the application, follow these steps:
-1. Build the application:
-   ```bash
-   npm run build
-   ```
-2. Serve the application using a static server:
-   ```bash
-   npm install -g serve
-   serve -s build
-   ```
-3. For cloud deployment, use services like Vercel, Netlify, or AWS Amplify.
-
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or features you'd like to suggest.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Conclusion
+This architectural overview outlines the primary components of the TrendStore application, from the frontend developed in React to the backend served with Node.js and deployed efficiently using Docker and Kubernetes on AWS. Further details can be found within respective sections of the documentation.
